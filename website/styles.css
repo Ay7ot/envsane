@@ -95,6 +95,7 @@ code {
   background: rgba(8, 8, 10, 0.85);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav-container {
@@ -252,7 +253,40 @@ code {
   align-items: center;
 }
 
-.hero-content { max-width: 500px; }
+.hero-content { 
+  max-width: 500px; 
+}
+
+/* Hero entrance animations */
+.hero-badge {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards, borderGlow 3s ease-in-out infinite 0.6s;
+  animation-delay: 0.2s;
+}
+
+.hero-title {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 0.35s;
+}
+
+.hero-subtitle {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 0.5s;
+}
+
+.hero-actions {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 0.65s;
+}
+
+.hero-demo {
+  opacity: 0;
+  animation: scaleIn 0.7s ease forwards;
+  animation-delay: 0.4s;
+}
 
 .hero-badge {
   display: inline-flex;
@@ -441,7 +475,12 @@ code {
 .terminal-body .line { white-space: pre; }
 .terminal-body .blank { height: 1em; }
 .terminal-body .indent { padding-left: 1.2em; }
-.terminal-body .prompt { color: var(--orange); font-weight: 600; }
+.terminal-body .prompt { 
+  color: var(--orange); 
+  font-weight: 600;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+}
 .terminal-body .output { color: var(--text-primary); }
 .terminal-body .bold { font-weight: 600; }
 .terminal-body .dim { color: var(--text-muted); }
@@ -1196,11 +1235,524 @@ code {
   .stat-item { flex: 0 0 100%; }
 }
 
+/* ============ ANIMATIONS & MICRO-INTERACTIONS ============ */
+
+/* Keyframe Definitions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { 
+    box-shadow: 0 4px 20px rgba(255, 87, 34, 0.25);
+    transform: translateY(0);
+  }
+  50% { 
+    box-shadow: 0 8px 30px rgba(255, 87, 34, 0.4);
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% { border-color: var(--border); }
+  50% { border-color: rgba(255, 87, 34, 0.3); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes orbitGlow {
+  0% { transform: translate(-5%, 10%) scale(1); opacity: 0.05; }
+  50% { transform: translate(5%, -10%) scale(1.1); opacity: 0.08; }
+  100% { transform: translate(-5%, 10%) scale(1); opacity: 0.05; }
+}
+
+/* Scroll-triggered animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-scroll.delay-1 { transition-delay: 0.1s; }
+.animate-on-scroll.delay-2 { transition-delay: 0.2s; }
+.animate-on-scroll.delay-3 { transition-delay: 0.3s; }
+.animate-on-scroll.delay-4 { transition-delay: 0.4s; }
+.animate-on-scroll.delay-5 { transition-delay: 0.5s; }
+
+/* Hero Badge pulse animation - merged with entrance animation in hero section */
+
+.badge-icon {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Hero glow floating animation */
+.hero-glow {
+  animation: orbitGlow 8s ease-in-out infinite;
+}
+
+.hero::after {
+  animation: orbitGlow 10s ease-in-out infinite reverse;
+}
+
+/* Terminal cursor blink */
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--orange);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+/* Terminal typing animation styles */
+.terminal-body .line.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--orange);
+  animation: blink 0.7s step-end infinite;
+}
+
+.terminal-body .line.typed {
+  border-right: none;
+}
+
+/* Button hover enhancements */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-outline {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-outline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.btn-outline:hover::after {
+  width: 80%;
+}
+
+/* Nav link hover underline animation */
+.nav-links a:not(.nav-github) {
+  position: relative;
+}
+
+.nav-links a:not(.nav-github)::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:not(.nav-github):hover::after {
+  width: 100%;
+}
+
+/* GitHub button hover */
+.nav-github {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-github svg {
+  transition: transform 0.3s ease;
+}
+
+.nav-github:hover svg {
+  transform: rotate(360deg);
+}
+
+/* Copy button success animation */
+.copy-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.copy-btn.copied {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--green);
+}
+
+.copy-btn .check-icon {
+  color: var(--green);
+}
+
+/* Problem card hover effects */
+.problem-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.problem-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.problem-icon {
+  transition: all 0.3s ease;
+}
+
+.problem-card:hover .problem-icon {
+  transform: scale(1.1);
+  background: var(--orange-glow);
+}
+
+/* Feature block animations */
+.feature-block .terminal {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-block:hover .terminal {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 25px 60px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* Feature checks stagger animation */
+.feature-checks li {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.feature-block.is-visible .feature-checks li {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.feature-block.is-visible .feature-checks li:nth-child(1) { transition-delay: 0.1s; }
+.feature-block.is-visible .feature-checks li:nth-child(2) { transition-delay: 0.15s; }
+.feature-block.is-visible .feature-checks li:nth-child(3) { transition-delay: 0.2s; }
+.feature-block.is-visible .feature-checks li:nth-child(4) { transition-delay: 0.25s; }
+.feature-block.is-visible .feature-checks li:nth-child(5) { transition-delay: 0.3s; }
+.feature-block.is-visible .feature-checks li:nth-child(6) { transition-delay: 0.35s; }
+
+/* Check icon animation */
+.feature-checks svg {
+  transition: transform 0.3s ease;
+}
+
+.feature-checks li:hover svg {
+  transform: scale(1.2);
+}
+
+/* Step number pulse on hover */
+.step-number {
+  transition: all 0.3s ease;
+}
+
+.step:hover .step-number {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
+}
+
+/* Use case card slide effects */
+.use-case-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.use-case-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 87, 34, 0.03),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.use-case-card:hover::before {
+  left: 100%;
+}
+
+.use-case-icon {
+  transition: all 0.3s ease;
+}
+
+.use-case-card:hover .use-case-icon {
+  transform: scale(1.1) rotate(5deg);
+  background: var(--orange-glow);
+}
+
+.use-case-code {
+  transition: all 0.3s ease;
+}
+
+.use-case-card:hover .use-case-code {
+  background: var(--bg-primary);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* CTA box shimmer */
+.cta-box {
+  position: relative;
+}
+
+.cta-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    -45deg,
+    transparent 30%,
+    rgba(255, 87, 34, 0.03) 50%,
+    transparent 70%
+  );
+  background-size: 200% 200%;
+  animation: shimmer 6s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 24px;
+}
+
+/* Stat number animation */
+.stat-number {
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover .stat-number {
+  transform: scale(1.1);
+}
+
+/* Footer links hover */
+.footer-links a {
+  position: relative;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--orange);
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* Logo hover animation */
+.nav-logo {
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-logo .logo-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover .logo-icon {
+  transform: translateX(-2px);
+}
+
+/* Terminal dots hover */
+.terminal-dots .dot {
+  transition: transform 0.2s ease;
+}
+
+.terminal:hover .dot.red { transform: scale(1.2); transition-delay: 0s; }
+.terminal:hover .dot.yellow { transform: scale(1.2); transition-delay: 0.05s; }
+.terminal:hover .dot.green { transform: scale(1.2); transition-delay: 0.1s; }
+
+/* Mobile menu animation */
+.mobile-menu {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu a {
+  transition: all 0.2s ease;
+}
+
+.mobile-menu a:hover {
+  color: var(--orange);
+  padding-left: 8px;
+}
+
+/* Code inline hover */
+.code-inline {
+  transition: all 0.2s ease;
+}
+
+.code-inline:hover {
+  border-color: var(--border-light);
+  background: var(--bg-card);
+}
+
+/* Options panel animation */
+.option-item {
+  transition: all 0.2s ease;
+}
+
+.option-item:hover {
+  padding-left: 8px;
+}
+
+.option-item:hover code {
+  color: var(--orange-light);
+}
+
+/* Section tag line animation */
+.section-tag::before,
+.section-tag::after {
+  transition: width 0.4s ease;
+}
+
+.section-header:hover .section-tag::before,
+.section-header:hover .section-tag::after {
+  width: 50px;
+}
+
+/* Install box glow on hover */
+.install-box .install-command {
+  transition: all 0.3s ease;
+}
+
+.install-box .install-command:hover {
+  border-color: var(--border-light);
+  box-shadow: 0 0 20px rgba(255, 87, 34, 0.1);
+}
+
+/* Smooth page load */
+body {
+  animation: fadeInUp 0.6s ease;
+}
+
 /* ============ ACCESSIBILITY ============ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
   }
 }
 

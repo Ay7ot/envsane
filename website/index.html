@@ -257,7 +257,7 @@
             <span class="terminal-title">terminal</span>
           </div>
           <div class="terminal-body">
-            <div class="line"><span class="prompt">$</span> envsure check</div>
+            <div class="line"><span class="prompt">$</span> envsure check<span class="terminal-cursor"></span></div>
             <div class="line blank"></div>
             <div class="line output">Checking <span class="cyan">.env</span> against <span class="cyan">.env.example</span></div>
             <div class="line blank"></div>
@@ -822,16 +822,18 @@
   </footer>
 
   <script>
-    // Copy to clipboard
+    // Copy to clipboard with animation
     function copyToClipboard(text, button) {
       navigator.clipboard.writeText(text).then(() => {
         const copyIcon = button.querySelector('.copy-icon');
         const checkIcon = button.querySelector('.check-icon');
+        button.classList.add('copied');
         copyIcon.style.display = 'none';
         checkIcon.style.display = 'block';
         setTimeout(() => {
           copyIcon.style.display = 'block';
           checkIcon.style.display = 'none';
+          button.classList.remove('copied');
         }, 2000);
       });
     }
@@ -864,6 +866,154 @@
           window.scrollTo({ top: position, behavior: 'smooth' });
         }
       });
+    });
+
+    // Scroll-triggered animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          
+          // Animate stat numbers when visible
+          if (entry.target.classList.contains('stats')) {
+            animateStatNumbers();
+          }
+          
+          // Trigger terminal typing when hero is visible
+          if (entry.target.classList.contains('hero-demo')) {
+            startTerminalTyping();
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for scroll animations
+    document.querySelectorAll('.animate-on-scroll, .feature-block, .stats, .hero-demo').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Stat number animation
+    function animateStatNumbers() {
+      const statNumbers = document.querySelectorAll('.stat-number');
+      statNumbers.forEach(stat => {
+        if (stat.dataset.animated) return;
+        stat.dataset.animated = 'true';
+        
+        const finalValue = stat.textContent;
+        const isPercent = finalValue.includes('%');
+        const numValue = parseInt(finalValue);
+        
+        if (isNaN(numValue)) return;
+        
+        let current = 0;
+        const duration = 1500;
+        const steps = 30;
+        const increment = numValue / steps;
+        const stepDuration = duration / steps;
+        
+        const counter = setInterval(() => {
+          current += increment;
+          if (current >= numValue) {
+            stat.textContent = isPercent ? numValue + '%' : numValue;
+            clearInterval(counter);
+          } else {
+            stat.textContent = isPercent ? Math.floor(current) + '%' : Math.floor(current);
+          }
+        }, stepDuration);
+      });
+    }
+
+    // Terminal typing effect
+    let typingStarted = false;
+    function startTerminalTyping() {
+      if (typingStarted) return;
+      typingStarted = true;
+      
+      const terminal = document.querySelector('.hero-demo .terminal-body');
+      if (!terminal) return;
+      
+      const lines = terminal.querySelectorAll('.line');
+      
+      // Reset all lines to hidden
+      lines.forEach(line => {
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(5px)';
+        line.style.transition = 'all 0.3s ease';
+      });
+      
+      // Animate lines sequentially
+      lines.forEach((line, index) => {
+        setTimeout(() => {
+          line.style.opacity = '1';
+          line.style.transform = 'translateY(0)';
+        }, index * 120);
+      });
+    }
+
+    // Add animate-on-scroll classes dynamically
+    document.querySelectorAll('.section-header').forEach((el, i) => {
+      el.classList.add('animate-on-scroll');
+      observer.observe(el);
+    });
+    
+    document.querySelectorAll('.problem-card').forEach((el, i) => {
+      el.classList.add('animate-on-scroll', `delay-${(i % 3) + 1}`);
+      observer.observe(el);
+    });
+    
+    document.querySelectorAll('.use-case-card').forEach((el, i) => {
+      el.classList.add('animate-on-scroll', `delay-${(i % 4) + 1}`);
+      observer.observe(el);
+    });
+    
+    document.querySelectorAll('.step').forEach((el, i) => {
+      el.classList.add('animate-on-scroll', `delay-${i + 1}`);
+      observer.observe(el);
+    });
+    
+    document.querySelectorAll('.options-panel').forEach(el => {
+      el.classList.add('animate-on-scroll');
+      observer.observe(el);
+    });
+    
+    document.querySelectorAll('.cta-box').forEach(el => {
+      el.classList.add('animate-on-scroll');
+      observer.observe(el);
+    });
+
+    // Parallax effect on hero glow
+    document.addEventListener('mousemove', (e) => {
+      const heroGlow = document.querySelector('.hero-glow');
+      if (!heroGlow) return;
+      
+      const moveX = (e.clientX - window.innerWidth / 2) * 0.02;
+      const moveY = (e.clientY - window.innerHeight / 2) * 0.02;
+      
+      heroGlow.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+
+    // Nav background change on scroll
+    let lastScroll = 0;
+    const nav = document.querySelector('.nav');
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        nav.style.background = 'rgba(8, 8, 10, 0.95)';
+        nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+      } else {
+        nav.style.background = 'rgba(8, 8, 10, 0.85)';
+        nav.style.boxShadow = 'none';
+      }
+      
+      lastScroll = currentScroll;
     });
   </script>
 </body>
