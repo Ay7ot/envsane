@@ -1,6 +1,6 @@
 {
-  "name": "envsure - Environment Variable Validation",
-  "short_name": "envsure",
+  "name": "envsane - Environment Variable Validation",
+  "short_name": "envsane",
   "description": "A lightweight CLI tool for validating and comparing .env files. Catch environment variable issues before they break your deployments.",
   "start_url": "/",
   "display": "standalone",

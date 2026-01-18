@@ -7,7 +7,7 @@ import { explainCommand } from './commands/explain.js';
 const program = new Command();
 
 program
-  .name('envsure')
+  .name('envsane')
   .description('A lightweight CLI tool for validating and comparing .env files')
   .version('1.0.0');
 

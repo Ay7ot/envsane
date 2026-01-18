@@ -10,7 +10,7 @@ import type { CheckResult, DiffResult } from '../types.js';
 let testDir: string;
 
 function setupTestDir(): void {
-    testDir = path.join(os.tmpdir(), `envsure-test-${Date.now()}`);
+    testDir = path.join(os.tmpdir(), `envsane-test-${Date.now()}`);
     fs.mkdirSync(testDir, { recursive: true });
 }
 

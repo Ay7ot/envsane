@@ -1,15 +1,15 @@
 {
-  "name": "envsure",
+  "name": "envsane",
   "version": "1.0.0",
   "description": "A lightweight CLI tool for validating and comparing .env files",
   "type": "module",
   "main": "dist/cli.js",
   "bin": {
-    "envsure": "./dist/bin/envsure.js"
+    "envsane": "./dist/bin/envsane.js"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/bin/envsure.js",
+    "start": "node dist/bin/envsane.js",
     "dev": "tsc --watch",
     "test": "npm run build && node --test dist/tests/*.test.js",
     "generate-icons": "node scripts/generate-icons.js",
@@ -28,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ay7ot/envsure"
+    "url": "https://github.com/Ay7ot/envsane"
   },
   "engines": {
     "node": ">=16.0.0"

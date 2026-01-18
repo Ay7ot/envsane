@@ -1,15 +1,15 @@
-# envsure
+# envsane
 
 A lightweight CLI tool for validating and comparing `.env` files.
 
 **Stop shipping broken env files.**
 
-[![npm version](https://img.shields.io/npm/v/envsure.svg)](https://www.npmjs.com/package/envsure)
+[![npm version](https://img.shields.io/npm/v/envsane.svg)](https://www.npmjs.com/package/envsane)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
-## Why envsure?
+## Why envsane?
 
 Environment variables are a common source of silent failures:
 
@@ -19,14 +19,14 @@ Environment variables are a common source of silent failures:
 - Case mismatches (`DB_url` vs `DB_URL`)
 - Old variables lingering with no usage
 
-**envsure** catches these issues before they hit production.
+**envsane** catches these issues before they hit production.
 
 ---
 
 ## Installation
 
 ```bash
-npm install -g envsure
+npm install -g envsane
 ```
 
 ---
@@ -38,7 +38,7 @@ npm install -g envsure
 cd your-project
 
 # Run the check
-envsure check
+envsane check
 ```
 
 That's it. No configuration needed.
@@ -47,12 +47,12 @@ That's it. No configuration needed.
 
 ## Commands
 
-### `envsure check`
+### `envsane check`
 
 Validates environment consistency by comparing `.env` against `.env.example`.
 
 ```bash
-envsure check
+envsane check
 ```
 
 **Checks performed:**
@@ -73,12 +73,12 @@ envsure check
 
 ---
 
-### `envsure diff <fileA> <fileB>`
+### `envsane diff <fileA> <fileB>`
 
 Compares two `.env` files and highlights differences.
 
 ```bash
-envsure diff .env.production .env.staging
+envsane diff .env.production .env.staging
 ```
 
 **Output includes:**
@@ -91,12 +91,12 @@ envsure diff .env.production .env.staging
 
 ---
 
-### `envsure explain <VAR_NAME>`
+### `envsane explain <VAR_NAME>`
 
 Explains an environment variable using comments from `.env.example`.
 
 ```bash
-envsure explain DB_POOL_SIZE
+envsane explain DB_POOL_SIZE
 ```
 
 **Example `.env.example`:**
@@ -138,28 +138,28 @@ These options work with all commands:
 
 ```bash
 # In your CI pipeline
-envsure check --strict --json
+envsane check --strict --json
 ```
 
 ### Compare environments
 
 ```bash
 # See what's different between production and staging
-envsure diff .env.production .env.staging --values
+envsane diff .env.production .env.staging --values
 ```
 
 ### Document your variables
 
 ```bash
 # Get info about a specific variable
-envsure explain API_SECRET
+envsane explain API_SECRET
 ```
 
 ---
 
 ## Philosophy
 
-envsure is intentionally minimal:
+envsane is intentionally minimal:
 
 - **No configuration files** - works out of the box
 - **No network access** - runs entirely locally
@@ -170,7 +170,7 @@ envsure is intentionally minimal:
 
 ## Language Agnostic
 
-envsure works with any project that uses `.env` files:
+envsane works with any project that uses `.env` files:
 
 - Node.js
 - Python

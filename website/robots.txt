@@ -1,7 +1,7 @@
-# robots.txt for envsure
+# robots.txt for envsane
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://envsure.online/sitemap.xml
+Sitemap: https://envsane.online/sitemap.xml

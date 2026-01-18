@@ -1,5 +1,5 @@
 /**
- * Core types for envsure
+ * Core types for envsane
  */
 
 export interface EnvVariable {

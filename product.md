@@ -1,8 +1,8 @@
-# Product Doc: envsure
+# Product Doc: envsane
 
 ## 1. Overview
 
-**envsure** is a lightweight, opinionated CLI tool for validating and comparing `.env` files.
+**envsane** is a lightweight, opinionated CLI tool for validating and comparing `.env` files.
 
 It helps developers ensure that environment variables are:
 
@@ -12,7 +12,7 @@ It helps developers ensure that environment variables are:
 * Correctly named
 * Safe to deploy
 
-envsure focuses strictly on **file-based environment validation**, not runtime inspection, cloud syncing, or secret storage.
+envsane focuses strictly on **file-based environment validation**, not runtime inspection, cloud syncing, or secret storage.
 
 ---
 
@@ -65,7 +65,7 @@ There is no small, focused CLI that treats `.env` files as first-class configura
 * Solo developers deploying frequently
 * Teams that want safer deploys without extra infrastructure
 
-envsure is language-agnostic and can be used with Node, Python, Go, Ruby, PHP, Docker-based projects, or any workflow that relies on `.env` files.
+envsane is language-agnostic and can be used with Node, Python, Go, Ruby, PHP, Docker-based projects, or any workflow that relies on `.env` files.
 
 ---
 
@@ -76,7 +76,7 @@ envsure is language-agnostic and can be used with Node, Python, Go, Ruby, PHP, D
 A developer wants to confirm that the local environment is correctly configured before running or deploying an application.
 
 ```bash
-envsure check
+envsane check
 ```
 
 ---
@@ -86,7 +86,7 @@ envsure check
 A developer wants to compare assumptions between two environments, such as development and production.
 
 ```bash
-envsure diff .env.production .env.example
+envsane diff .env.production .env.example
 ```
 
 ---
@@ -96,14 +96,14 @@ envsure diff .env.production .env.example
 A developer wants to understand what a variable is for without opening files.
 
 ```bash
-envsure explain DB_POOL_SIZE
+envsane explain DB_POOL_SIZE
 ```
 
 ---
 
 ## 6. Features
 
-### 6.1 `envsure check`
+### 6.1 `envsane check`
 
 Validates environment consistency in the current directory.
 
@@ -129,7 +129,7 @@ Validates environment consistency in the current directory.
 
 ---
 
-### 6.2 `envsure diff <fileA> <fileB>`
+### 6.2 `envsane diff <fileA> <fileB>`
 
 Compares two `.env` files and highlights differences.
 
@@ -142,12 +142,12 @@ Compares two `.env` files and highlights differences.
 **Example**
 
 ```bash
-envsure diff .env.production .env.example
+envsane diff .env.production .env.example
 ```
 
 ---
 
-### 6.3 `envsure explain <VAR_NAME>`
+### 6.3 `envsane explain <VAR_NAME>`
 
 Explains an environment variable using comments from `.env.example`.
 
@@ -168,7 +168,7 @@ DB_POOL_SIZE=10
 Command:
 
 ```bash
-envsure explain DB_POOL_SIZE
+envsane explain DB_POOL_SIZE
 ```
 
 Output:
@@ -195,7 +195,7 @@ Example: 10
 ## 8. CLI Interface
 
 ```bash
-envsure <command> [options]
+envsane <command> [options]
 ```
 
 ### Commands
@@ -250,12 +250,12 @@ envsure <command> [options]
 
 ## 11. Distribution
 
-envsure is distributed as an npm package.
+envsane is distributed as an npm package.
 
 Global installation:
 
 ```bash
-npm install -g envsure
+npm install -g envsane
 ```
 
 The tool itself is language-agnostic; Node.js is only required for installation and execution.
@@ -285,7 +285,7 @@ These are intentionally excluded from v1.
 
 ## 14. Positioning Statement
 
-envsure is a small CLI that helps developers ensure their environment variables are correct before they ship.
+envsane is a small CLI that helps developers ensure their environment variables are correct before they ship.
 
 No dashboards.
 No magic.
